@@ -1,11 +1,11 @@
-name: ci
+name: Push DockerHub
 
 on:
   push:
     branches: ["master"]
 
 jobs:
-  docker:
+  push_dockerhub:
     runs-on: ubuntu-latest
     steps:
       -
