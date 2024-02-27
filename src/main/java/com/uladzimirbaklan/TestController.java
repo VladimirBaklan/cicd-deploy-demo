@@ -1,9 +1,7 @@
 package com.uladzimirbaklan;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,17 +20,19 @@ public class TestController {
         return ResponseEntity.ok(new TestResponse(UUID.randomUUID().toString(), "version_2"));
     }
 
-    @GetMapping("/proxy/{path}")
-    public ResponseEntity<String> getProxyRequest(@PathVariable String path)
+    @PostMapping("/proxy")
+    public ResponseEntity<String> getProxyRequest(@RequestBody ProxyRequestBody requestBody)
         throws URISyntaxException, IOException, InterruptedException {
         final var request = HttpRequest
             .newBuilder()
-            .uri(new URI(path))
+            .uri(new URI(requestBody.uri))
             .build();
 
         final var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return ResponseEntity.ok(response.body());
     }
+
+    public record ProxyRequestBody(String uri) {}
 
     public record TestResponse(String id, String version) {
     }
