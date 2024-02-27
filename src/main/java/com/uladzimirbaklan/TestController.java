@@ -11,7 +11,7 @@ import java.util.UUID;
 public class TestController {
     @GetMapping("/test")
     public ResponseEntity<TestResponse> getTestResponse() {
-        return ResponseEntity.ok(new TestResponse(UUID.randomUUID().toString(), "version1"));
+        return ResponseEntity.ok(new TestResponse(UUID.randomUUID().toString(), "version_2"));
     }
 
     public record TestResponse(String id, String version) {
