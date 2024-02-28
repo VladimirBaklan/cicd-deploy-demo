@@ -16,4 +16,5 @@ public class TestController {
     public record TestResponse(String id, String version) {
     }
 
+
 }
